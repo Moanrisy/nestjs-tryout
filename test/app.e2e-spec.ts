@@ -17,7 +17,7 @@ describe('App e2e', () => {
         imports: [AppModule],
       }).compile();
 
-    const app = moduleRef.createNestApplication();
+    app = moduleRef.createNestApplication();
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
@@ -29,31 +29,38 @@ describe('App e2e', () => {
     prisma = app.get(PrismaService);
 
     await prisma.cleanDb();
+    pactum.request.setBaseUrl(
+      'http://localhost:3333',
+    );
   });
-  // BUG close method does not exist
-  // afterAll(() => {
-  //   app.close();
-  // });
+
+  afterAll(() => {
+    app.close();
+  });
 
   describe('Auth', () => {
+    const dto: AuthDto = {
+      email: 'test12@gmail.com',
+      password: 'test12',
+    };
     describe('Signup', () => {
       it('should signup', () => {
-        const dto: AuthDto = {
-          email: 'test12@gmail.com',
-          password: 'test12',
-        };
         return pactum
           .spec()
-          .post(
-            'http://localhost:3333/auth/signup',
-          )
+          .post('/auth/signup')
           .withBody(dto)
           .expectStatus(201);
       });
     });
 
     describe('Signin', () => {
-      it.todo('should signin');
+      it('should signin', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody(dto)
+          .expectStatus(200);
+      });
     });
   });
 
