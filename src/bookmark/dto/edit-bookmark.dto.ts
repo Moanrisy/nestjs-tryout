@@ -14,5 +14,5 @@ export class EditBookmarkDto {
 
   @IsString()
   @IsOptional()
-  link: string;
+  link?: string;
 }
