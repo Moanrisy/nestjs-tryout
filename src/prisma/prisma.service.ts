@@ -8,7 +8,9 @@ export class PrismaService extends PrismaClient {
     super({
       datasources: {
         db: {
-          url: config.get('DATABASE_URL'),
+          url: 'postgresql://postgres:123@localhost:5434/mydb?schema=public',
+          // BUG heroku won't deploy using this config.get
+          // url: config.get('DATABASE_URL'),
         },
       },
     });
