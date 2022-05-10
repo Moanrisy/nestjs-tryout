@@ -18,6 +18,17 @@ async function bootstrap() {
     .setTitle('Bookmarks API')
     .setDescription('Bookmark API description')
     .setVersion('1.0')
+    .addTag('auth')
+    .addTag('user')
+    .addTag('bookmarks')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'JWT',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(

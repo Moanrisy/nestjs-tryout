@@ -10,9 +10,15 @@ import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '..//auth/guard';
 import { EditUserDto } from './dto';
 import { UserService } from './user.service';
+import {
+  ApiBearerAuth,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @UseGuards(JwtGuard)
 @Controller('user')
+@ApiTags('user')
+@ApiBearerAuth('JWT')
 export class UserController {
   constructor(private userService: UserService) {}
   @Get('me')
