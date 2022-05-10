@@ -7,7 +7,7 @@ import {
 
 export class AuthDto {
   @ApiProperty({
-    example: 'test13@gmail.com',
+    example: 'test12@gmail.com',
   })
   @IsEmail()
   @IsNotEmpty()
